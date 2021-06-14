@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel='stylesheet' href='./webviewer.css'></link>
+  <script src='./lib/webviewer.min.js'></script>
+</head>
+
+<body>
+    <div id='viewer'></div>
+    <script src='APPIAN_JS_SDK_URI'></script>
+    <script>
+        // Handle a new user input location from SAIL.
+        Appian.Component.onNewValue(function (newValues) {
+            const license = newValues.key;
+            let URLtoFile = 'https://pdftron.s3.amazonaws.com/downloads/pl/webviewer-demo.pdf';
+
+            if (newValues.url) {
+                URLtoFile = newValues.url;
+            } 
+
+            WebViewer({
+                path: '/lib', // path to the PDFTron 'lib' folder on your server
+                licenseKey: license,
+                initialDoc: URLtoFile,
+            }, document.getElementById('viewer'))
+            .then(instance => { 
+                docViewer.on('documentLoaded', () => {
+                    // call methods relating to the loaded document
+                });
+            });
+        });    
+      </script>
+</body>
+</html>

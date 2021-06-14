@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<appian-component-plugin name="PDFTron WebViewer Component Plug-in" key="com.pdftron.webviewer.sample">
+  <plugin-info>
+    <description>Provides a WebViewer Plug-in backed by PDFTron</description>
+    <vendor name="PDFTron" url="http://www.pdftron.com" />
+    <support supported="true" email="support@pdftron.com" url="https://community.pdftron.com"/>
+    <version>1.0</version>
+  </plugin-info>
+
+  <component rule-name="mapField" version="1.0.0">
+    <sdk-version>2.0.0</sdk-version>
+    <icon-file>google-maps.svg</icon-file>
+    <parameter>
+      <name>key</name>
+      <category>input-only</category>
+      <type>Text</type>
+    </parameter>
+    <parameter>
+      <name>url</name>
+      <category>input-only</category>
+      <type>Text</type>
+    </parameter>
+    <html-entry-point>index.html</html-entry-point>
+    <supported-user-agents>chrome firefox ie11 edge safari mobile</supported-user-agents>
+  </component>
+</appian-component-plugin>
