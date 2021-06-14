@@ -15,3 +15,7 @@ This sample was built by following the [guide](https://docs.appian.com/suite/hel
 ## Package and Deploy
 
 Follow the steps from [`Package and Deploy`](https://docs.appian.com/suite/help/21.2/develop-first-component.html#package-and-deploy) to test it in your Appian environment. 
+
+## Parameters 
+
+It has two fields you can pass `key` and `url`. Key is optional and if not provided, it will run in demo mode. URL is a URL to the file, you would like to open.
