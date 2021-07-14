@@ -9,7 +9,7 @@
 
   <component rule-name="mapField" version="1.0.0">
     <sdk-version>2.0.0</sdk-version>
-    <icon-file>google-maps.svg</icon-file>
+    <icon-file>favicon.svg</icon-file>
     <parameter>
       <name>key</name>
       <category>input-only</category>

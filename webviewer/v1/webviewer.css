@@ -1,5 +1,5 @@
-#viewer {
+html, body, #viewer {
     width: 100%;
-    height: 100vh;
+    height: 800px;
     margin: 0 auto;
 }
