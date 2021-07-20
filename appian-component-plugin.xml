@@ -7,7 +7,7 @@
     <version>1.0</version>
   </plugin-info>
 
-  <component rule-name="mapField" version="1.0.0">
+  <component rule-name="webviewer" version="1.0.0">
     <sdk-version>2.0.0</sdk-version>
     <icon-file>favicon.svg</icon-file>
     <parameter>
