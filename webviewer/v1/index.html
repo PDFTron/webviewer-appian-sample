@@ -23,6 +23,8 @@
                 path: '/suite/rest/a/content/latest/webcontent/webviewer/lib/',
                 licenseKey: license,
                 initialDoc: URLtoFile,
+                backendType: 'ems',
+                enableFilePicker: true
             }, document.getElementById('viewer'))
             .then(instance => { 
                 docViewer.on('documentLoaded', () => {
