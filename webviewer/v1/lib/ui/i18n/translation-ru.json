@@ -32,6 +32,7 @@
     "rename": "Переименовать",
     "ok": "OK",
     "rotate": "Повернуть",
+    "rotate3D": "Повернуть",
     "rotateClockwise": "По часовой",
     "rotateCounterClockwise": "Против часовой",
     "save": "Сохранить",
@@ -60,6 +61,9 @@
     "startFormEditing": "Начать редактирование формы",
     "exitFormEditing": "Выйти из режима редактирования формы",
     "exit": "Выход",
+    "addOption": "Добавить вариант",
+    "formFieldEdit": "Изменить поле формы",
+    "viewShortCutKeysFor3D": "Просмотр горячих клавиш",
     "markAllRead": "Отметить все как прочитанные"
   },
   "annotation": {
@@ -68,12 +72,15 @@
     "callout": "Вызыв",
     "crop": "Обрезать страницу",
     "caret": "Знак вставки",
+    "formFillCheckmark": "Галочка",
+    "formFillCross": "Крест",
     "distanceMeasurement": "Дистанция",
     "countMeasurement": "Измерение счета",
     "ellipse": "Эллипс",
     "eraser": "ластик",
     "fileattachment": "Файл вложения",
     "freehand": "От руки",
+    "freeHandHighlight": "Ручное выделение",
     "freetext": "Текст",
     "highlight": "Выделить",
     "line": "Линия",
@@ -83,6 +90,7 @@
     "polyline": "Ломаная",
     "rectangle": "Прямоугольник",
     "redact": "Редактировать",
+    "formFillDot": "Точка",
     "signature": "Подпись",
     "squiggly": "Волнистая линия",
     "stamp": "Штамп",
@@ -92,8 +100,15 @@
     "custom": "Свой стиль",
     "rubberStamp": "Штамп",
     "note": "Заметка",
+    "textField": "Текстовое поле",
+    "signatureFormField": "Поле для подписи",
+    "checkBoxFormField": "Поле флажка",
+    "radioButtonFormField": "Поле RadioButton",
+    "listBoxFormField": "Поле списка",
+    "comboBoxFormField": "Поле со списком",
     "link": "Ссылка на сайт",
-    "other": "Другие"
+    "other": "Другие",
+    "3D": "3D"
   },
   "rubberStamp": {
     "Approved": "Одобренный",
@@ -129,6 +144,7 @@
     "notesPanel": "Заметки",
     "outlinesPanel": "Контуры",
     "bookmarksPanel": "закладки",
+    "signaturePanel": "Подписи",
     "newBookmark": "Новая закладка",
     "bookmarkPage": "страница",
     "layersPanel": "Слои",
@@ -150,7 +166,8 @@
     "encryptedUserCancelled": "Не удалось загрузить зашифрованный документ. Ввод пароля прерван.",
     "enterPassword": "Документ защищен паролем. Пожалуйста введите пароль.",
     "incorrectPassword": "Пароль неверный, {{ remainingAttempts }} попыток осталось.",
-    "noAnnotations": "Документ не имеет аннотаций.",
+    "noAnnotations": "Начните делать аннотации, чтобы оставить комментарий.",
+    "noAnnotationsReadOnly": "Документ не имеет аннотаций.",
     "noAnnotationsFilter": "Начните делать аннотации и фильтры появятся здесь.",
     "noOutlines": "Документ не имеет оглавления.",
     "noResults": "Поиск не вернул результатов.",
@@ -176,6 +193,8 @@
     "sortBy": "Сортировать по",
     "emptyCustomStampInput": "Текст штампа не может быть пустым",
     "unpostedComment": "Неопубликованный комментарий",
+    "lockedLayer": "Слой заблокирован",
+    "layerVisibililtyNoChange": "Видимость слоя не может быть изменена",
     "untitled": "Без названия"
   },
   "option": {
@@ -185,7 +204,8 @@
       "time": "Время",
       "status": "Статус",
       "author": "Автор",
-      "type": "Тип"
+      "type": "Тип",
+      "color": "Цвет"
     },
     "toolbarGroup": {
       "dropdownLabel": "Группы панелей инструментов",
@@ -194,7 +214,9 @@
       "toolbarGroup-Shapes": "Формы",
       "toolbarGroup-Insert": "Вставить",
       "toolbarGroup-Measure": "Мера",
-      "toolbarGroup-Edit": "редактировать"
+      "toolbarGroup-Edit": "редактировать",
+      "toolbarGroup-FillAndSign": "Заполните и подпишите",
+      "toolbarGroup-Forms": "Формы"
     },
     "annotationColor": {
       "StrokeColor": "Цвет границ",
@@ -220,6 +242,7 @@
       "double": "Двойной",
       "single": "Единый"
     },
+    "mathSymbols": "Математические символы",
     "notesPanel": {
       "separator": {
         "today": "Сегодня",
@@ -280,8 +303,8 @@
     },
     "filterAnnotModal": {
       "commentBy": "Комментарий от",
-      "includeReplies": "Включить ответы",
-      "types": "Типы"
+      "types": "Типы",
+      "color": "Цвет"
     },
     "status": {
       "status": "Статус"
@@ -369,7 +392,13 @@
     "deletePage": {
       "deleteTitle": "Удалить страницу",
       "deleteMessage": "Вы уверены, что хотите удалить выбранные страницы? Это не может быть отменено",
-      "deleteLastPageMessage": "Это приведет к тому, что не останется ни одной страницы. Пожалуйста, оставьте хотя бы одну страницу"
+      "deleteLastPageMessage": "Вы не можете удалить все страницы в документе."
+    },
+    "extractPage": {
+      "title": "Извлечь страницу",
+      "message": "Вы уверены, что хотите извлечь выбранные страницы?",
+      "confirmBtn": "Извлечь страницы",
+      "secondaryBtn": "Извлечь и удалить страницу (ы)"
     },
     "redaction": {
       "applyTile": "Применить редактирование",
@@ -416,7 +445,9 @@
       "italic": "(Ctrl I)",
       "underline": "(Ctrl U)",
       "strikeout": "(Ctrl K)"
-    }
+    },
+    "rotate3D": "Shift + перетащить",
+    "zoom3D": "Shift + прокрутка"
   },
   "tool": {
     "pan": "Панорамирование",
@@ -431,6 +462,12 @@
     "page": "страница",
     "enterurl": "Введите URL, на который вы хотите сослаться",
     "enterpage": "Выберите номер страницы, на которую вы хотите сослаться"
+  },
+  "Model3D": {
+    "add3D": "Добавьте 3D-аннотацию, введя URL",
+    "enterurl": "Введите URL-адрес 3D-объекта в формате glTF",
+    "enterurlOrLocalFile": "Введите URL или загрузите 3D-объект в формате glTF",
+    "formatError": "Поддерживается только формат glTF (.glb)"
   },
   "datePicker": {
     "previousMonth": "Предыдущий месяц",
@@ -449,6 +486,20 @@
       "10": "ноябрь",
       "11": "декабрь"
     },
+    "monthsShort": [
+      "янв",
+      "февр",
+      "март",
+      "апр",
+      "май",
+      "июнь",
+      "июль",
+      "авг",
+      "сент",
+      "окт",
+      "ноябрь",
+      "дек"
+    ],
     "weekdays": {
       "0": "воскресенье",
       "1": "понедельник",
@@ -466,6 +517,39 @@
       "4": "чт",
       "5": "пт",
       "6": "сб"
+    }
+  },
+  "formField": {
+    "formFieldPopup": {
+      "fieldName": "Имя поля",
+      "fieldValue": "Значение по умолчанию",
+      "readOnly": "Только чтение",
+      "multiSelect": "Выбор из нескольких вариантов",
+      "required": "Обязательный",
+      "multiLine": "Многострочный",
+      "apply": "Применять",
+      "cancel": "Отмена",
+      "flags": "Флаги поля",
+      "options": "Параметры",
+      "radioGroups": "Радиокнопки с одинаковым именем поля будут входить в одну группу.",
+      "nameRequired": "Требуется название поля",
+      "size": "Размер",
+      "width": "Ширина",
+      "height": "Высота",
+      "invalidField": {
+        "duplicate": "Имя поля уже существует",
+        "empty": "Имя поля не может быть пустым"
+      }
+    },
+    "apply": "Применить поля",
+    "type": "Тип поля",
+    "types": {
+      "text": "Текст",
+      "signature": "Подпись",
+      "checkbox": "Флажок",
+      "radio": "Переключатель",
+      "listbox": "Окно списка",
+      "combobox": "Поле со списком"
     }
   },
   "digitalSignatureModal": {

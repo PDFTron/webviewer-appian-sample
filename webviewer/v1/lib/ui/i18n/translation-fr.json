@@ -32,6 +32,7 @@
     "rename": "Renommer",
     "ok": "OK",
     "rotate": "Tourner",
+    "rotate3D": "Tourner",
     "rotateClockwise": "Tourner horaire",
     "rotateCounterClockwise": "Tourner antihoraire",
     "save": "Enregistrer",
@@ -60,6 +61,9 @@
     "startFormEditing": "Commencer l'édition du formulaire",
     "exitFormEditing": "Quitter le mode d'édition de formulaire",
     "exit": "Sortie",
+    "addOption": "Ajouter une option",
+    "formFieldEdit": "Modifier le champ de formulaire",
+    "viewShortCutKeysFor3D": "Afficher les touches de raccourci",
     "markAllRead": "Marquer tout comme lu"
   },
   "annotation": {
@@ -68,12 +72,15 @@
     "callout": "Faire appel à",
     "crop": "Page de recadrage",
     "caret": "Caret",
+    "formFillCheckmark": "Cocher",
+    "formFillCross": "Traverser",
     "distanceMeasurement": "Mesure de distance",
     "countMeasurement": "Mesure de comptage",
     "ellipse": "Ellipse",
     "eraser": "La gomme",
     "fileattachment": "Pièce jointe",
     "freehand": "Stylo",
+    "freeHandHighlight": "Mise en évidence de la main libre",
     "freetext": "Texte libre",
     "highlight": "Surligne",
     "line": "Ligne",
@@ -83,6 +90,7 @@
     "polyline": "Ligne polygonale",
     "rectangle": "Rectangle",
     "redact": "Biffure",
+    "formFillDot": "Point",
     "signature": "Signature",
     "squiggly": "Ligne ondulée",
     "stamp": "Timbre",
@@ -92,8 +100,15 @@
     "custom": "personnalisation",
     "rubberStamp": "Rubber Stamp",
     "note": "Remarque",
+    "textField": "Champ de texte",
+    "signatureFormField": "Champ de signature",
+    "checkBoxFormField": "Champ de case à cocher",
+    "radioButtonFormField": "Champ RadioButton",
+    "listBoxFormField": "Champ de zone de liste",
+    "comboBoxFormField": "Champ de zone de liste déroulante",
     "link": "Lien",
-    "other": "Autre"
+    "other": "Autre",
+    "3D": "3D"
   },
   "rubberStamp": {
     "Approved": "Approuvée",
@@ -129,6 +144,7 @@
     "notesPanel": "Remarques",
     "outlinesPanel": "Contour",
     "bookmarksPanel": "Signets",
+    "signaturePanel": "Signatures",
     "newBookmark": "Nouveau signet",
     "bookmarkPage": "Page",
     "layersPanel": "Couches",
@@ -150,7 +166,8 @@
     "encryptedUserCancelled": "Échec du chargement du document chiffré. Saisie du mot de passe annulée.",
     "enterPassword": "Ce document est protégé par un mot de passe. Veuillez saisir ce mot de passe.",
     "incorrectPassword": "Mot de passe incorrect. Tentatives restantes: {{remainingAttempts}}",
-    "noAnnotations": "Ce document n'a pas d'annotations.",
+    "noAnnotations": "Commencez à faire des annotations pour laisser un commentaire.",
+    "noAnnotationsReadOnly": "Ce document n'a pas d'annotations.",
     "noAnnotationsFilter": "Commencez à créer des annotations et des filtres apparaîtront ici.",
     "noOutlines": "Ce document n'a pas de plan.",
     "noResults": "Aucun résultat trouvé.",
@@ -176,6 +193,8 @@
     "sortBy": "Trier par",
     "emptyCustomStampInput": "Le texte du tampon ne peut pas être vide",
     "unpostedComment": "Commentaire non publié",
+    "lockedLayer": "Le calque est verrouillé",
+    "layerVisibililtyNoChange": "La visibilité de la couche ne peut pas être modifiée",
     "untitled": "Sans titre"
   },
   "option": {
@@ -185,7 +204,8 @@
       "time": "Temps",
       "status": "Statut",
       "author": "Auteur",
-      "type": "Type"
+      "type": "Type",
+      "color": "Couleur"
     },
     "toolbarGroup": {
       "dropdownLabel": "Groupes de barres d'outils",
@@ -194,7 +214,9 @@
       "toolbarGroup-Shapes": "Formes",
       "toolbarGroup-Insert": "Insérer",
       "toolbarGroup-Measure": "Mesure",
-      "toolbarGroup-Edit": "Éditer"
+      "toolbarGroup-Edit": "Éditer",
+      "toolbarGroup-FillAndSign": "Remplir et signer",
+      "toolbarGroup-Forms": "Formes"
     },
     "annotationColor": {
       "StrokeColor": "Couleur de bordure",
@@ -220,6 +242,7 @@
       "double": "Deux",
       "single": "Une"
     },
+    "mathSymbols": "Symboles mathématiques",
     "notesPanel": {
       "separator": {
         "today": "Aujourd'hui",
@@ -280,8 +303,8 @@
     },
     "filterAnnotModal": {
       "commentBy": "Commentaire de",
-      "includeReplies": "Inclure les réponses",
-      "types": "Les types"
+      "types": "Les types",
+      "color": "Couleur"
     },
     "status": {
       "status": "Statut"
@@ -369,7 +392,13 @@
     "deletePage": {
       "deleteTitle": "Supprimer la page",
       "deleteMessage": "Voulez-vous vraiment supprimer les pages sélectionnées? Cela ne peut pas être annulé",
-      "deleteLastPageMessage": "Il en résulterait aucune page restante. Veuillez laisser au moins une page"
+      "deleteLastPageMessage": "Vous ne pouvez pas supprimer toutes les pages du document."
+    },
+    "extractPage": {
+      "title": "Extraire la page",
+      "message": "Voulez-vous vraiment extraire la ou les pages sélectionnées?",
+      "confirmBtn": "Extraire des pages",
+      "secondaryBtn": "Extraire et supprimer des pages"
     },
     "redaction": {
       "applyTile": "Appliquer la rédaction",
@@ -416,7 +445,9 @@
       "italic": "(Ctrl I)",
       "underline": "(Ctrl U)",
       "strikeout": "(Ctrl K)"
-    }
+    },
+    "rotate3D": "Maj + Glisser",
+    "zoom3D": "Maj + Défilement"
   },
   "tool": {
     "pan": "Panoramique",
@@ -431,6 +462,12 @@
     "page": "Page",
     "enterurl": "Entrez l'URL à laquelle vous souhaitez créer un lien",
     "enterpage": "Sélectionnez le numéro de page auquel vous souhaitez lier"
+  },
+  "Model3D": {
+    "add3D": "Ajoutez une annotation 3D en saisissant une URL",
+    "enterurl": "Entrez l'URL de l'objet 3D au format glTF",
+    "enterurlOrLocalFile": "Entrez l'URL ou téléchargez un objet 3D au format glTF",
+    "formatError": "Seul le format glTF (.glb) est pris en charge"
   },
   "datePicker": {
     "previousMonth": "Le mois précédent",
@@ -449,6 +486,20 @@
       "10": "novembre",
       "11": "décembre"
     },
+    "monthsShort": [
+      "janv",
+      "févr",
+      "mars",
+      "avril",
+      "mai",
+      "juin",
+      "juil",
+      "août",
+      "sept",
+      "oct",
+      "nov",
+      "déc"
+    ],
     "weekdays": {
       "0": "dimanche",
       "1": "lundi",
@@ -466,6 +517,39 @@
       "4": "jeu.",
       "5": "ven.",
       "6": "sam."
+    }
+  },
+  "formField": {
+    "formFieldPopup": {
+      "fieldName": "Nom de domaine",
+      "fieldValue": "Valeur par défaut",
+      "readOnly": "Lecture seulement",
+      "multiSelect": "Sélection multiple",
+      "required": "Obligatoire",
+      "multiLine": "Multiligne",
+      "apply": "Appliquer",
+      "cancel": "Annuler",
+      "flags": "Drapeaux de terrain",
+      "options": "Options",
+      "radioGroups": "Les boutons radio avec le même nom de champ appartiendront au même groupement.",
+      "nameRequired": "Le nom du champ est obligatoire",
+      "size": "Taille",
+      "width": "Largeur",
+      "height": "Hauteur",
+      "invalidField": {
+        "duplicate": "Le nom du champ existe déjà",
+        "empty": "Le nom du champ ne peut pas être vide"
+      }
+    },
+    "apply": "Appliquer les champs",
+    "type": "Type de champ",
+    "types": {
+      "text": "Texte",
+      "signature": "Signature",
+      "checkbox": "Case à cocher",
+      "radio": "Bouton radio",
+      "listbox": "Zone de liste",
+      "combobox": "Boîte combo"
     }
   },
   "digitalSignatureModal": {

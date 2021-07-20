@@ -32,6 +32,7 @@
     "rename": "Renomear",
     "ok": "OK",
     "rotate": "Girar",
+    "rotate3D": "Girar",
     "rotateClockwise": "Sentido horário",
     "rotateCounterClockwise": "Sentido anti-horário",
     "save": "Salvar",
@@ -60,6 +61,9 @@
     "startFormEditing": "Comece a edição do formulário",
     "exitFormEditing": "Sair do modo de edição de formulário",
     "exit": "Saída",
+    "addOption": "Adicionar Opção",
+    "formFieldEdit": "Editar campo de formulário",
+    "viewShortCutKeysFor3D": "Exibir teclas de atalho",
     "markAllRead": "Marcar todas como lidas"
   },
   "annotation": {
@@ -68,12 +72,15 @@
     "callout": "Texto explicativo",
     "crop": "Cortar página",
     "caret": "Cursor",
+    "formFillCheckmark": "Carraça",
+    "formFillCross": "Cruzar",
     "distanceMeasurement": "Medição de distância",
     "countMeasurement": "Medição de contagem",
     "ellipse": "Elipse",
     "eraser": "Apagador",
     "fileattachment": "Anexo",
     "freehand": "Desenho livre",
+    "freeHandHighlight": "Destaque de mão livre",
     "freetext": "Texto livre",
     "highlight": "Destacar",
     "line": "Linha",
@@ -83,6 +90,7 @@
     "polyline": "Polilinha",
     "rectangle": "Retângulo",
     "redact": "Suprimir",
+    "formFillDot": "Ponto",
     "signature": "Assinatura",
     "squiggly": "Linha ondulada",
     "stamp": "Carimbo",
@@ -92,8 +100,15 @@
     "custom": "Personalizado",
     "rubberStamp": "Carimbo de borracha",
     "note": "Nota",
+    "textField": "Campo de texto",
+    "signatureFormField": "Campo de Assinatura",
+    "checkBoxFormField": "Campo da caixa de seleção",
+    "radioButtonFormField": "RadioButton Field",
+    "listBoxFormField": "Campo da Caixa de Lista",
+    "comboBoxFormField": "Campo de caixa de combinação",
     "link": "Link",
-    "other": "Outro"
+    "other": "Outro",
+    "3D": "3D"
   },
   "rubberStamp": {
     "Approved": "Aprovado",
@@ -129,6 +144,7 @@
     "notesPanel": "Anotações",
     "outlinesPanel": "Esquemas",
     "bookmarksPanel": "Favoritos",
+    "signaturePanel": "Assinaturas",
     "newBookmark": "Novo marcador",
     "bookmarkPage": "Página",
     "layersPanel": "Camadas",
@@ -150,7 +166,8 @@
     "encryptedUserCancelled": "Falha ao carregar documento criptografado. Digitação de senha cancelada.",
     "enterPassword": "Esse documento é protegido por senha. Digite uma senha",
     "incorrectPassword": "Senha incorreta. Tentativas restantes: {{ remainingAttempts }}",
-    "noAnnotations": "Esse documento não tem anotações.",
+    "noAnnotations": "Comece a fazer anotações para deixar um comentário.",
+    "noAnnotationsReadOnly": "Esse documento não tem anotações.",
     "noAnnotationsFilter": "Comece a fazer anotações e filtros aparecerão aqui.",
     "noOutlines": "Esse documento não tem contorno.",
     "noResults": "Nenhum resultado encontrado.",
@@ -176,6 +193,8 @@
     "sortBy": "Ordenar por",
     "emptyCustomStampInput": "O texto do carimbo não pode estar vazio",
     "unpostedComment": "Comentário Não Postado",
+    "lockedLayer": "Camada está bloqueada",
+    "layerVisibililtyNoChange": "A visibilidade da camada não pode ser alterada",
     "untitled": "Sem título"
   },
   "option": {
@@ -185,7 +204,8 @@
       "time": "Hora",
       "status": "Status",
       "author": "Autor",
-      "type": "Tipo"
+      "type": "Tipo",
+      "color": "Cor"
     },
     "toolbarGroup": {
       "dropdownLabel": "Grupos da barra de ferramentas",
@@ -194,7 +214,9 @@
       "toolbarGroup-Shapes": "Formas",
       "toolbarGroup-Insert": "Inserir",
       "toolbarGroup-Measure": "Medir",
-      "toolbarGroup-Edit": "Editar"
+      "toolbarGroup-Edit": "Editar",
+      "toolbarGroup-FillAndSign": "Preencher e assinar",
+      "toolbarGroup-Forms": "Formulários"
     },
     "annotationColor": {
       "StrokeColor": "Cor da borda",
@@ -220,6 +242,7 @@
       "double": "Página dupla",
       "single": "Página única"
     },
+    "mathSymbols": "Símbolos matemáticos",
     "notesPanel": {
       "separator": {
         "today": "Hoje",
@@ -280,8 +303,8 @@
     },
     "filterAnnotModal": {
       "commentBy": "Comentado por",
-      "includeReplies": "Incluir Respostas",
-      "types": "Tipos"
+      "types": "Tipos",
+      "color": "Cor"
     },
     "status": {
       "status": "Status"
@@ -369,7 +392,13 @@
     "deletePage": {
       "deleteTitle": "Excluir página",
       "deleteMessage": "Esta ação excluirá permanentemente as páginas selecionadas. Isso não pode ser desfeito",
-      "deleteLastPageMessage": "Esta ação resultaria em nenhuma página restante. Deixe pelo menos uma página"
+      "deleteLastPageMessage": "Você não pode excluir todas as páginas do documento."
+    },
+    "extractPage": {
+      "title": "Extrair página",
+      "message": "Tem certeza de que deseja extrair as páginas selecionadas?",
+      "confirmBtn": "Extrair páginas",
+      "secondaryBtn": "Extrair e remover página (s)"
     },
     "redaction": {
       "applyTile": "Aplicar supressão",
@@ -416,7 +445,9 @@
       "italic": "(Ctrl I)",
       "underline": "(Ctrl U)",
       "strikeout": "(Ctrl K)"
-    }
+    },
+    "rotate3D": "Shift + arrastar",
+    "zoom3D": "Shift + Scroll"
   },
   "tool": {
     "pan": "Mover",
@@ -431,6 +462,12 @@
     "page": "Página",
     "enterurl": "Digite a URL que você deseja vincular",
     "enterpage": "Selecione o número da página que você deseja vincular"
+  },
+  "Model3D": {
+    "add3D": "Adicione uma anotação 3D inserindo URL",
+    "enterurl": "Insira o URL para o objeto 3D no formato glTF",
+    "enterurlOrLocalFile": "Insira o URL ou carregue um objeto 3D no formato glTF",
+    "formatError": "Apenas o formato glTF (.glb) é compatível"
   },
   "datePicker": {
     "previousMonth": "Mês anterior",
@@ -449,6 +486,20 @@
       "10": "Novembro",
       "11": "Dezembro"
     },
+    "monthsShort": [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dec"
+    ],
     "weekdays": {
       "0": "Domingo",
       "1": "Segunda-feira",
@@ -466,6 +517,39 @@
       "4": "Qui",
       "5": "Sex",
       "6": "Sáb"
+    }
+  },
+  "formField": {
+    "formFieldPopup": {
+      "fieldName": "Nome do Campo",
+      "fieldValue": "Valor padrão",
+      "readOnly": "Somente leitura",
+      "multiSelect": "Multi Select",
+      "required": "Obrigatório",
+      "multiLine": "Multilinha",
+      "apply": "Aplicar",
+      "cancel": "Cancelar",
+      "flags": "Bandeiras de campo",
+      "options": "Opções",
+      "radioGroups": "Os botões de opção com o mesmo nome de campo pertencerão ao mesmo agrupamento.",
+      "nameRequired": "O nome do campo é obrigatório",
+      "size": "Tamanho",
+      "width": "Largura",
+      "height": "Altura",
+      "invalidField": {
+        "duplicate": "Nome do campo já existe",
+        "empty": "O nome do campo não pode estar vazio"
+      }
+    },
+    "apply": "Aplicar Campos",
+    "type": "Tipo de campo",
+    "types": {
+      "text": "Texto",
+      "signature": "Assinatura",
+      "checkbox": "Caixa de seleção",
+      "radio": "Botao de radio",
+      "listbox": "Caixa de lista",
+      "combobox": "Caixa combo"
     }
   },
   "digitalSignatureModal": {

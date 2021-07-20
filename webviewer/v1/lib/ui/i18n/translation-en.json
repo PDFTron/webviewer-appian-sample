@@ -32,6 +32,7 @@
     "rename": "Rename",
     "ok": "OK",
     "rotate": "Page Orientation",
+    "rotate3D": "Rotate",
     "rotateClockwise": "Rotate Clockwise",
     "rotateCounterClockwise": "Rotate Counterclockwise",
     "save": "Save",
@@ -60,6 +61,9 @@
     "startFormEditing": "Start Form Editing",
     "exitFormEditing": "Exit Form Editing Mode",
     "exit": "Exit",
+    "addOption": "Add Option",
+    "formFieldEdit": "Edit Form Field",
+    "viewShortCutKeysFor3D": "View Shortcut Keys",
     "markAllRead": "Mark all as read"
   },
   "annotation": {
@@ -68,12 +72,15 @@
     "callout": "Callout",
     "crop": "Crop Page",
     "caret": "Caret",
+    "formFillCheckmark": "Tick",
+    "formFillCross": "Cross",
     "distanceMeasurement": "Distance",
     "countMeasurement": "Count measurement",
     "ellipse": "Ellipse",
     "eraser": "Eraser",
     "fileattachment": "File Attachment",
     "freehand": "Free Hand",
+    "freeHandHighlight": "Free Hand Highlight",
     "freetext": "Free Text",
     "highlight": "Highlight",
     "line": "Line",
@@ -83,6 +90,7 @@
     "polyline": "Polyline",
     "rectangle": "Rectangle",
     "redact": "Redact",
+    "formFillDot": "Dot",
     "signature": "Signature",
     "squiggly": "Squiggly",
     "stamp": "Stamp",
@@ -92,8 +100,15 @@
     "custom": "Custom",
     "rubberStamp": "Rubber Stamp",
     "note": "Note",
+    "textField": "Text Field",
+    "signatureFormField": "Signature Field",
+    "checkBoxFormField": "Checkbox Field",
+    "radioButtonFormField": "RadioButton Field",
+    "listBoxFormField": "List Box Field",
+    "comboBoxFormField": "Combo Box Field",
     "link": "Link",
-    "other": "Other"
+    "other": "Other",
+    "3D": "3D"
   },
   "rubberStamp": {
     "Approved": "Approved",
@@ -129,6 +144,7 @@
     "notesPanel": "Comments",
     "outlinesPanel": "Outlines",
     "bookmarksPanel": "Bookmarks",
+    "signaturePanel": "Signatures",
     "newBookmark": "New Bookmark",
     "bookmarkPage": "Page",
     "layersPanel": "Layers",
@@ -151,6 +167,7 @@
     "enterPassword": "This document is password protected. Please enter a password",
     "incorrectPassword": "Incorrect password, attempts left: {{ remainingAttempts }}",
     "noAnnotations": "Start making annotations to leave a comment.",
+    "noAnnotationsReadOnly": "This document has no annotations.",
     "noAnnotationsFilter": "Start making annotations and filters will appear here.",
     "noOutlines": "This document has no outline.",
     "noResults": "No results found.",
@@ -176,6 +193,8 @@
     "sortBy": "Sort by",
     "emptyCustomStampInput": "Stamp text cannot be empty",
     "unpostedComment": "Unposted Comment",
+    "lockedLayer": "Layer is locked",
+    "layerVisibililtyNoChange": "Layer visibililty can't be changed",
     "untitled": "Untitled"
   },
   "option": {
@@ -185,7 +204,8 @@
       "time": "Time",
       "status": "Status",
       "author": "Author",
-      "type": "Type"
+      "type": "Type",
+      "color": "Color"
     },
     "toolbarGroup": {
       "dropdownLabel": "Toolbar Groups",
@@ -194,7 +214,9 @@
       "toolbarGroup-Shapes": "Shapes",
       "toolbarGroup-Insert": "Insert",
       "toolbarGroup-Measure": "Measure",
-      "toolbarGroup-Edit": "Edit"
+      "toolbarGroup-Edit": "Edit",
+      "toolbarGroup-FillAndSign": "Fill and Sign",
+      "toolbarGroup-Forms": "Forms"
     },
     "annotationColor": {
       "StrokeColor": "Stroke",
@@ -220,6 +242,7 @@
       "double": "Double Page",
       "single": "Single Page"
     },
+    "mathSymbols": "Math symbols",
     "notesPanel": {
       "separator": {
         "today": "Today",
@@ -280,8 +303,8 @@
     },
     "filterAnnotModal": {
       "commentBy": "Comment by",
-      "includeReplies": "Include Replies",
-      "types": "Types"
+      "types": "Types",
+      "color": "Color"
     },
     "status": {
       "status": "Status"
@@ -369,7 +392,13 @@
     "deletePage": {
       "deleteTitle": "Delete Page",
       "deleteMessage": "Are you sure you want to delete the selected page(s). This can't be undone",
-      "deleteLastPageMessage": "This would result in no pages remaining. Please leave at least one page"
+      "deleteLastPageMessage": "You cannot delete all pages in the document."
+    },
+    "extractPage": {
+      "title": "Extract Page",
+      "message": "Are you sure you want to extract the selected page(s)?",
+      "confirmBtn": "Extract pages",
+      "secondaryBtn": "Extract and remove page(s)"
     },
     "redaction": {
       "applyTile": "Apply Redaction",
@@ -416,7 +445,9 @@
       "italic": "(Ctrl I)",
       "underline": "(Ctrl U)",
       "strikeout": "(Ctrl K)"
-    }
+    },
+    "rotate3D": "Shift + Drag",
+    "zoom3D": "Shift + Scroll"
   },
   "tool": {
     "pan": "Pan",
@@ -431,6 +462,12 @@
     "page": "Page",
     "enterurl": "Enter URL you would like to link to",
     "enterpage": "Select the page number you would like to link to"
+  },
+  "Model3D": {
+    "add3D": "Add 3D object",
+    "enterurl": "Enter the URL of the 3D object in glTF format",
+    "enterurlOrLocalFile": "Enter the URL or upload a 3D object in glTF format",
+    "formatError": "Only glTF (.glb) format is supported"
   },
   "datePicker": {
     "previousMonth": "Previous Month",
@@ -448,6 +485,20 @@
       "October",
       "November",
       "December"
+    ],
+    "monthsShort": [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sept",
+      "Oct",
+      "Nov",
+      "Dec"
     ],
     "weekdays": [
       "Sunday",
@@ -467,6 +518,39 @@
       "Fri",
       "Sat"
     ]
+  },
+  "formField": {
+    "formFieldPopup": {
+      "fieldName": "Field Name",
+      "fieldValue": "Default Value",
+      "readOnly": "Read Only",
+      "multiSelect": "Multi Select",
+      "required": "Required",
+      "multiLine": "Multiline",
+      "apply": "Apply",
+      "cancel": "Cancel",
+      "flags": "Field Flags",
+      "options": "Options",
+      "radioGroups": "Radio buttons with the same Field Name will belong in the same grouping.",
+      "nameRequired": "Field name is required",
+      "size": "Size",
+      "width": "Width",
+      "height": "Height",
+      "invalidField": {
+        "duplicate": "Field Name already exists",
+        "empty": "Field Name cannot be empty"
+      }
+    },
+    "apply": "Apply Fields",
+    "type": "Field Type",
+    "types": {
+      "text": "Text",
+      "signature": "Signature",
+      "checkbox": "Check box",
+      "radio": "Radio button",
+      "listbox": "List box",
+      "combobox": "Combo box"
+    }
   },
   "digitalSignatureModal": {
     "certification": "certification",
