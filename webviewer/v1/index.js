@@ -1,20 +1,5 @@
 Appian.Component.onNewValue(function (newValues) {
-  const license = newValues.key;
-  const appianDocId = newValues.appianDocId;
-
-  let URLtoFile =
-    "https://pdftron.s3.amazonaws.com/downloads/pl/webviewer-demo.pdf";
-
-  if (newValues.url) {
-    URLtoFile = newValues.url;
-  }
-
-  if (checkNull(appianDocId)) {
-    Appian.Component.setValidations(
-      "Appian Document Id should not be null or empty"
-    );
-    return;
-  }
+  const { key, appianDocId, connectedSystem } = newValues;
 
   if (checkNull(connectedSystem)) {
     Appian.Component.setValidations(
@@ -26,7 +11,7 @@ Appian.Component.onNewValue(function (newValues) {
   WebViewer(
     {
       path: "/suite/rest/a/content/latest/webcontent/webviewer/lib/",
-      licenseKey: license,
+      licenseKey: key,
       backendType: "ems",
       enableFilePicker: true,
     },
@@ -40,6 +25,7 @@ Appian.Component.onNewValue(function (newValues) {
         img: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>',
         onClick: async () => {
           let docId, message;
+          const createNewDoc = true;
           const doc = docViewer.getDocument();
           const xfdfString = await annotManager.exportAnnotations();
           const data = await doc.getFileData({
@@ -87,7 +73,10 @@ Appian.Component.onNewValue(function (newValues) {
             createNewDocument: createNewDoc,
           };
 
-          if (createNewDoc) payload.newDocName = uploadDocumentName;
+          if (createNewDoc)
+            payload.newDocName = doc.getFileName()
+              ? doc.getFileName()
+              : "myfile.pdf";
           else payload.documentId = appianDocId;
 
           await Appian.Component.invokeClientApi(
@@ -103,30 +92,34 @@ Appian.Component.onNewValue(function (newValues) {
       });
     });
 
-    getDocumentFromAppian(appianDocId).then(
-      function (documentData) {
-        if (
-          checkNull(documentData.docBase64) ||
-          checkNull(documentData.docName)
-        ) {
+    if (!checkNull(appianDocId)) {
+      getDocumentFromAppian(appianDocId).then(
+        function (documentData) {
+          if (
+            checkNull(documentData.docBase64) ||
+            checkNull(documentData.docName)
+          ) {
+            Appian.Component.setValidations(
+              "Unable to fetch document from Appian"
+            );
+            return;
+          } else {
+            convertBase64ToArrayBuffer(documentData.docBase64).then(
+              (documentBuffer) => {
+                instance.loadDocument(documentBuffer.arrayBuffer());
+              }
+            );
+            documentName = documentData.docName;
+          }
+        },
+        function (error) {
           Appian.Component.setValidations(
             "Unable to fetch document from Appian"
           );
-          return;
-        } else {
-          convertBase64ToArrayBuffer(documentData.docBase64).then(
-            (documentBuffer) => {
-              instance.loadDocument(documentBuffer.arrayBuffer());
-            }
-          );
-          documentName = documentData.docName;
+          console.error(error);
         }
-      },
-      function (error) {
-        Appian.Component.setValidations("Unable to fetch document from Appian");
-        console.error(error);
-      }
-    );
+      );
+    }
 
     docViewer.on("documentLoaded", () => {
       // call methods relating to the loaded document
