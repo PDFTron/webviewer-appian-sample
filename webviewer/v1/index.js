@@ -1,7 +1,7 @@
 Appian.Component.onNewValue(function (newValues) {
-  const { key, appianDocId, connectedSystem } = newValues;
+  const { key, appianDocId, docAccessConnectedSystem } = newValues;
 
-  if (checkNull(connectedSystem)) {
+  if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
       "Document Access connected system should not be null or empty"
     );
@@ -32,7 +32,7 @@ Appian.Component.onNewValue(function (newValues) {
             xfdfString,
           });
           const arr = new Uint8Array(data);
-          const docBase64 = convertArrayBufferToBase64(arr);
+          const blob = new Blob([arr], { type: "application/pdf" });
 
           function handleClientApiResponse(response) {
             if (response.payload.error) {
@@ -69,18 +69,15 @@ Appian.Component.onNewValue(function (newValues) {
           }
 
           var payload = {
-            base64: docBase64,
+            base64: blob,
             createNewDocument: createNewDoc,
           };
 
-          if (createNewDoc)
-            payload.newDocName = doc.getFileName()
-              ? doc.getFileName()
-              : "myfile.pdf";
+          if (createNewDoc) payload.newDocName = "myfile.pdf";
           else payload.documentId = appianDocId;
 
           await Appian.Component.invokeClientApi(
-            connectedSystem,
+            docAccessConnectedSystem,
             "WebViewerStorageClientApi",
             payload
           )
@@ -93,7 +90,62 @@ Appian.Component.onNewValue(function (newValues) {
     });
 
     if (!checkNull(appianDocId)) {
-      getDocumentFromAppian(appianDocId).then(
+      async function getDocumentFromAppian() {
+        var docData, docName, message;
+        function handleClientApiResponse(response) {
+          if (response.payload.error) {
+            console.error(
+              "Connected system response: " + response.payload.error
+            );
+            Appian.Component.setValidations(
+              "Connected system response: " + response.payload.error
+            );
+            return;
+          }
+          docData = response.payload.docData;
+          docName = response.payload.docName;
+
+          if (checkNull(docData) || checkNull(docName)) {
+            message = "Unable to obtain the doc data from the connected system";
+            console.error(message);
+            Appian.Component.setValidations(message);
+            return;
+          } else {
+            // Clear any error messages
+            Appian.Component.setValidations([]);
+          }
+        }
+
+        function handleError(response) {
+          if (response.error && response.error[0]) {
+            console.error(response.error);
+            Appian.Component.setValidations([response.error]);
+          } else {
+            message = "An unspecified error occurred";
+            console.error(message);
+            Appian.Component.setValidations(message);
+          }
+        }
+
+        const payload = {
+          documentId: appianDocId,
+        };
+
+        await Appian.Component.invokeClientApi(
+          docAccessConnectedSystem,
+          "WebViewerRetrieveClientApi",
+          payload
+        )
+          .then(handleClientApiResponse)
+          .catch(handleError);
+
+        return {
+          docBase64: docData,
+          docName,
+        };
+      }
+
+      getDocumentFromAppian().then(
         function (documentData) {
           if (
             checkNull(documentData.docBase64) ||
@@ -106,7 +158,7 @@ Appian.Component.onNewValue(function (newValues) {
           } else {
             convertBase64ToArrayBuffer(documentData.docBase64).then(
               (documentBuffer) => {
-                instance.loadDocument(documentBuffer.arrayBuffer());
+                instance.loadDocument(documentBuffer);
               }
             );
             documentName = documentData.docName;
