@@ -31,8 +31,8 @@ Appian.Component.onNewValue(function (newValues) {
           const data = await doc.getFileData({
             xfdfString,
           });
-          const arr = new Uint8Array(data);
-          const blob = new Blob([arr], { type: "application/pdf" });
+
+          const base64Document = convertArrayBufferToBase64(data);
 
           function handleClientApiResponse(response) {
             if (response.payload.error) {
@@ -69,7 +69,7 @@ Appian.Component.onNewValue(function (newValues) {
           }
 
           var payload = {
-            base64: blob,
+            base64: base64Document,
             createNewDocument: createNewDoc,
           };
 
