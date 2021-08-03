@@ -23,7 +23,7 @@
     <parameter>
       <name>appianDocId</name>
       <category>input-only</category>
-      <type>Integer</type>
+      <type>Text</type>
     </parameter>
     <parameter>
       <name>docAccessConnectedSystem</name>
