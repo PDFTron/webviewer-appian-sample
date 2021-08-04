@@ -1,5 +1,5 @@
 Appian.Component.onNewValue(function (newValues) {
-  const { key, appianDocId, docAccessConnectedSystem, disabledElements } = newValues;
+  const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction } = newValues;
 
   if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
@@ -69,6 +69,8 @@ Appian.Component.onNewValue(function (newValues) {
       licenseKey: key,
       backendType: "ems",
       enableFilePicker: true,
+      fullAPI: fullAPI,
+      enableRedaction: enableRedaction,
       disabledElements: disabledElements ? disabledElements.split(',') : []
     },
     document.getElementById("viewer")
@@ -145,7 +147,9 @@ Appian.Component.onNewValue(function (newValues) {
       });
     });
 
-    if (!checkNull(appianDocId)) {
+    if (!checkNull(url)) {
+      instance.loadDocument(url);
+    } else if (!checkNull(appianDocId)) {
       if (appianDocId.toString().split(',').length === 1) {
         getDocumentFromAppian(Number(appianDocId)).then(
           function (documentData) {
