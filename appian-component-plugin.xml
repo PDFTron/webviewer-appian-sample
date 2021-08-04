@@ -26,6 +26,11 @@
       <type>Text</type>
     </parameter>
     <parameter>
+      <name>disabledElements</name>
+      <category>input-only</category>
+      <type>Text</type>
+    </parameter>
+    <parameter>
       <name>docAccessConnectedSystem</name>
       <category>input-only</category>
       <type>ConnectedSystem</type>

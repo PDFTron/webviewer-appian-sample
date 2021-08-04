@@ -1,5 +1,5 @@
 Appian.Component.onNewValue(function (newValues) {
-  const { key, appianDocId, docAccessConnectedSystem } = newValues;
+  const { key, appianDocId, docAccessConnectedSystem, disabledElements } = newValues;
 
   if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
@@ -69,6 +69,7 @@ Appian.Component.onNewValue(function (newValues) {
       licenseKey: key,
       backendType: "ems",
       enableFilePicker: true,
+      disabledElements: disabledElements ? disabledElements.split(',') : []
     },
     document.getElementById("viewer")
   ).then((instance) => {
