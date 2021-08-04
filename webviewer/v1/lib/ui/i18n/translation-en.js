@@ -1,4 +1,4 @@
-{
+const translations = {
   "action": {
     "apply": "Apply",
     "applyAll": "Apply all",
@@ -656,3 +656,5 @@
     }
   }
 }
+
+export default translations;
