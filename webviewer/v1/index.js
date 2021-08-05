@@ -1,5 +1,5 @@
 Appian.Component.onNewValue(function (newValues) {
-  const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction, userDisplayName } = newValues;
+  const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction, userDisplayName, documentFolder, saveAsNewDocument, documentName } = newValues;
 
   if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
@@ -87,7 +87,7 @@ Appian.Component.onNewValue(function (newValues) {
         img: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>',
         onClick: async () => {
           let docId, message;
-          const createNewDoc = true;
+          const createNewDoc = saveAsNewDocument ? saveAsNewDocument : false;
           const doc = docViewer.getDocument();
           const xfdfString = await annotManager.exportAnnotations();
           const data = await doc.getFileData({
@@ -130,13 +130,19 @@ Appian.Component.onNewValue(function (newValues) {
             }
           }
 
+          const documentAppianFolder = documentFolder ? Number(documentFolder) : 0;
+          console.log(documentAppianFolder);
+          console.log(createNewDoc);
+
           var payload = {
             base64: base64Document,
             createNewDocument: createNewDoc,
+            documentFolder: documentAppianFolder
           };
-
-          if (createNewDoc) payload.newDocName = doc.getFilename() ? `${doc.getFilename()}_${Date.now()}` : "myfile.pdf";
-          else payload.documentId = appianDocId;
+          
+          const fileName = doc.getFilename() ? `${doc.getFilename()}_${Date.now()}` : "myfile.pdf";
+          if (createNewDoc) payload.newDocName = documentName !== '' ? documentName : fileName;
+          else payload.documentId = Number(appianDocId);
 
           await Appian.Component.invokeClientApi(
             docAccessConnectedSystem,
@@ -171,7 +177,6 @@ Appian.Component.onNewValue(function (newValues) {
                   instance.loadDocument(documentBuffer, { filename: documentData.docName, extension: documentData.docName.split('.').pop() });
                 }
               );
-              documentName = documentData.docName;
             }
           },
           function (error) {
@@ -183,6 +188,7 @@ Appian.Component.onNewValue(function (newValues) {
         );
       } else if (appianDocId.toString().split(',').length > 1) {
         let promiseArray = [];
+        let docName = '';
         appianDocId.split(',').forEach(id => {
           promiseArray.push(getDocumentFromAppian(Number(id)));
         });
@@ -200,10 +206,14 @@ Appian.Component.onNewValue(function (newValues) {
               return;
             } else {
               blobPromiseArray.push(convertBase64ToArrayBuffer(documentData.docBase64));
+              if (docName === '') {
+                // get the name of the first document
+                docName = documentData.docName;
+              }
               Promise.all(blobPromiseArray).then(values => {
                 mergeDocuments(values).then(mergedPdf => {
                   // merged pdf, here you can download it using mergedPdf.getFileData
-                  instance.loadDocument(mergedPdf);
+                  instance.loadDocument(mergedPdf, { filename: docName });
                 });
                 
                 // recursive function with promise 
