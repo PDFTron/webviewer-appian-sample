@@ -1,5 +1,5 @@
 Appian.Component.onNewValue(function (newValues) {
-  const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction } = newValues;
+  const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction, userDisplayName } = newValues;
 
   if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
@@ -77,6 +77,10 @@ Appian.Component.onNewValue(function (newValues) {
   ).then((instance) => {
     const { docViewer, annotManager, CoreControls } = instance;
 
+    if (!checkNull(userDisplayName)) {
+      annotManager.setCurrentUser(userDisplayName);
+    }   
+
     instance.setHeaderItems((header) => {
       header.push({
         type: "actionButton",
@@ -131,7 +135,7 @@ Appian.Component.onNewValue(function (newValues) {
             createNewDocument: createNewDoc,
           };
 
-          if (createNewDoc) payload.newDocName = "myfile.pdf";
+          if (createNewDoc) payload.newDocName = doc.getFilename() ? `${doc.getFilename()}_${Date.now()}` : "myfile.pdf";
           else payload.documentId = appianDocId;
 
           await Appian.Component.invokeClientApi(
@@ -164,7 +168,7 @@ Appian.Component.onNewValue(function (newValues) {
             } else {
               convertBase64ToArrayBuffer(documentData.docBase64).then(
                 (documentBuffer) => {
-                  instance.loadDocument(documentBuffer);
+                  instance.loadDocument(documentBuffer, { filename: documentData.docName, extension: documentData.docName.split('.').pop() });
                 }
               );
               documentName = documentData.docName;

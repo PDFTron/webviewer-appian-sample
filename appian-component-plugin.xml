@@ -26,6 +26,11 @@
       <type>Text</type>
     </parameter>
     <parameter>
+      <name>userDisplayName</name>
+      <category>input-only</category>
+      <type>Text</type>
+    </parameter>
+    <parameter>
       <name>disabledElements</name>
       <category>input-only</category>
       <type>Text</type>
