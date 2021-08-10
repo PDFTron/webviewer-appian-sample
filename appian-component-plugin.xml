@@ -56,7 +56,7 @@
       <type>Boolean</type>
     </parameter>
     <parameter>
-      <name>saveAsNewDocument</name>
+      <name>enableExtractPagesToAppian</name>
       <category>input-only</category>
       <type>Boolean</type>
     </parameter>
