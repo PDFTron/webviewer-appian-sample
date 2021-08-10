@@ -23,12 +23,12 @@
     <parameter>
       <name>appianDocId</name>
       <category>input-only</category>
-      <type>Text</type>
+      <type>Integer?list</type>
     </parameter>
     <parameter>
       <name>documentFolder</name>
       <category>input-only</category>
-      <type>Text</type>
+      <type>Integer</type>
     </parameter>
     <parameter>
       <name>userDisplayName</name>
@@ -38,7 +38,7 @@
     <parameter>
       <name>disabledElements</name>
       <category>input-only</category>
-      <type>Text</type>
+      <type>Text?list</type>
     </parameter>
     <parameter>
       <name>docAccessConnectedSystem</name>

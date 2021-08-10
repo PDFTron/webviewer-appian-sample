@@ -71,7 +71,7 @@ Appian.Component.onNewValue(function (newValues) {
       enableFilePicker: true,
       fullAPI: fullAPI,
       enableRedaction: enableRedaction,
-      disabledElements: disabledElements ? disabledElements.split(',') : []
+      disabledElements: disabledElements
     },
     document.getElementById("viewer")
   ).then((instance) => {
@@ -160,8 +160,8 @@ Appian.Component.onNewValue(function (newValues) {
     if (!checkNull(url)) {
       instance.loadDocument(url);
     } else if (!checkNull(appianDocId)) {
-      if (appianDocId.toString().split(',').length === 1) {
-        getDocumentFromAppian(Number(appianDocId)).then(
+      if (appianDocId.length === 1) {
+        getDocumentFromAppian(appianDocId[0]).then(
           function (documentData) {
             if (
               checkNull(documentData.docBase64) ||
@@ -186,11 +186,11 @@ Appian.Component.onNewValue(function (newValues) {
             console.error(error);
           }
         );
-      } else if (appianDocId.toString().split(',').length > 1) {
+      } else if (appianDocId.length > 1) {
         let promiseArray = [];
         let docName = '';
-        appianDocId.split(',').forEach(id => {
-          promiseArray.push(getDocumentFromAppian(Number(id)));
+        appianDocId.forEach(id => {
+          promiseArray.push(getDocumentFromAppian(id));
         });
         Promise.all(promiseArray).then(values => {
           let blobPromiseArray = [];
