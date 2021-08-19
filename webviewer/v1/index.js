@@ -1,9 +1,9 @@
 let isInitialized = false;
 let wvInstance;
+let currentDocId;
 
 Appian.Component.onNewValue(function (newValues) { 
   const { key, url, appianDocId, docAccessConnectedSystem, disabledElements, fullAPI, enableRedaction, userDisplayName, documentFolder, enableExtractPagesToAppian } = newValues;
-  console.log(newValues);
 
   if (checkNull(docAccessConnectedSystem)) {
     Appian.Component.setValidations(
@@ -86,6 +86,7 @@ Appian.Component.onNewValue(function (newValues) {
             } else {
               convertBase64ToArrayBuffer(documentData.docBase64).then(
                 (documentBuffer) => {
+                  currentDocId = appianDocId[0];
                   wvInstance.loadDocument(documentBuffer, { filename: documentData.docName, extension: documentData.docName.split('.').pop() });
                 }
               );
@@ -101,6 +102,7 @@ Appian.Component.onNewValue(function (newValues) {
       } else if (appianDocId.length > 1) {
         let promiseArray = [];
         let docName = '';
+        currentDocId = appianDocId[0];
         appianDocId.forEach(id => {
           promiseArray.push(getDocumentFromAppian(id));
         });
@@ -301,7 +303,10 @@ Appian.Component.onNewValue(function (newValues) {
               .then(handleClientApiResponse)
               .catch(handleError);
   
-            instance.UI.closeElements([modalSaveAs.dataElement]);  
+            instance.UI.closeElements([modalSaveAs.dataElement]);
+
+            console.log(docId);
+            Appian.Component.saveValue('newSavedDocumentId', docId);
 
             return docId;
           });
@@ -440,7 +445,9 @@ Appian.Component.onNewValue(function (newValues) {
                 .then(handleClientApiResponse)
                 .catch(handleError);
 
-              instance.UI.closeElements([modalExtractPages.dataElement]);  
+              instance.UI.closeElements([modalExtractPages.dataElement]);
+              console.log(docId);
+              Appian.Component.saveValue('newSavedDocumentId', docId);
     
               return docId;
           });
@@ -530,8 +537,8 @@ Appian.Component.onNewValue(function (newValues) {
               createNewDocument: false,
               documentFolder: documentAppianFolder
             };
-            
-            payload.documentId = appianDocId[0];
+
+            payload.documentId = currentDocId;
   
             await Appian.Component.invokeClientApi(
               docAccessConnectedSystem,
@@ -540,6 +547,9 @@ Appian.Component.onNewValue(function (newValues) {
             )
               .then(handleClientApiResponse)
               .catch(handleError);
+
+              console.log(currentDocId);
+              Appian.Component.saveValue('newSavedDocumentId', currentDocId);
   
             return docId;
           },
