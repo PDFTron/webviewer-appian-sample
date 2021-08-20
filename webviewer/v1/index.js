@@ -382,6 +382,7 @@ Appian.Component.onNewValue(function (newValues) {
               } else if (pagesToExtract.length === 0) {
                 instance.UI.closeElements([modalExtractPages.dataElement]);  
                 instance.showErrorMessage('No pages selected. Please select pages and try again.');
+                instance.UI.openElements(['leftPanel']); 
                 setTimeout(() => {
                   instance.closeElements(['errorModal']);
                 }, 2000)
@@ -475,6 +476,8 @@ Appian.Component.onNewValue(function (newValues) {
         if (enableExtractPagesToAppian) {
           header.push({
             type: "actionButton",
+            title: "Extract selected pages",
+            dataElement: "extractAppianButton",
             img: '<svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><defs><style>.cls-1{fill:#868e96;}</style></defs><path class="cls-1" d="M16.49,13.54h1.83V9.25s0,0,0-.06a.59.59,0,0,0,0-.23.32.32,0,0,0,0-.09.8.8,0,0,0-.18-.27l-5.5-5.5a.93.93,0,0,0-.26-.18l-.09,0a1,1,0,0,0-.24,0l-.05,0H5.49A1.84,1.84,0,0,0,3.66,4.67V19.33a1.84,1.84,0,0,0,1.83,1.84H11V19.33H5.49V4.67H11V9.25a.92.92,0,0,0,.92.92h4.58Z"/><path class="cls-1" d="M20.21,17.53,17.05,15a.37.37,0,0,0-.6.29v1.6H12.78v1.84h3.67v1.61a.37.37,0,0,0,.6.29l3.16-2.53A.37.37,0,0,0,20.21,17.53Z"/></svg>',
             onClick: () => {
               instance.UI.openElements([modalExtractPages.dataElement]);
@@ -485,6 +488,8 @@ Appian.Component.onNewValue(function (newValues) {
         // update an existing document back to Appian
         header.push({
           type: "actionButton",
+          title: "Save",
+          dataElement: "saveAppianButton",
           img: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>',
           onClick: async () => {
             let docId, message;
@@ -558,7 +563,13 @@ Appian.Component.onNewValue(function (newValues) {
         // save as a new document back to Appian
         header.push({
           type: "actionButton",
-          img: '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px"><path d="M0 0h24v24H0z" fill="none"/><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2zm-3-7V3.5L18.5 9H13z"/></svg>',
+          title: "Save as",
+          dataElement: "saveAsAppianButton",
+          img: `<svg width="auto" height="auto" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.3439 12.2929C20.9534 11.9024 20.3202 11.9024 19.9297 12.2929L18.9611 13.2615L20.6786 14.979L21.6472 14.0104C22.0377 13.6199 22.0377 12.9867 21.6472 12.5962L21.3439 12.2929Z" fill="black"/>
+          <path d="M19.5615 16.0961L17.844 14.3786L12.2584 19.9642L12 21.9401L13.9759 21.6817L19.5615 16.0961Z" fill="black"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.05087 21H4C2.897 21 2 20.103 2 19V5C2 3.897 2.897 3 4 3H15C15.266 3 15.52 3.105 15.707 3.293L19.707 7.293C19.895 7.48 20 7.735 20 8V10.0509L18.0003 12.0505L18 8.414L14.586 5H14V9H13H12H10H8H6V5H4V19H6V14C6 12.897 6.897 12 8 12H14C15.103 12 16 12.897 16 14V14.0509L14 16.0509V14H8V19H11.0509L9.05087 21ZM10 7H12V5H10V7Z" fill="black"/>
+          </svg>`,
           onClick: async () => {
             instance.UI.openElements([modalSaveAs.dataElement]);
           },
