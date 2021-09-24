@@ -177,10 +177,11 @@ Appian.Component.onNewValue(function (newValues) {
       {
         path: "/suite/rest/a/content/latest/webcontent/webviewer/lib/",
         licenseKey: key,
-        backendType: "ems",
         enableFilePicker: true,
         fullAPI: fullAPI,
         enableRedaction: enableRedaction,
+        backendType: 'asm',
+        loadAsPDF: true,
         disabledElements: disabledElements
       },
       document.getElementById("viewer")
@@ -447,7 +448,6 @@ Appian.Component.onNewValue(function (newValues) {
                 .catch(handleError);
 
               instance.UI.closeElements([modalExtractPages.dataElement]);
-              console.log(docId);
               Appian.Component.saveValue('newSavedDocumentId', docId);
     
               return docId;
@@ -553,7 +553,6 @@ Appian.Component.onNewValue(function (newValues) {
               .then(handleClientApiResponse)
               .catch(handleError);
 
-              console.log(currentDocId);
               Appian.Component.saveValue('newSavedDocumentId', currentDocId);
   
             return docId;
