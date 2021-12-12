@@ -351,11 +351,11 @@ Appian.Component.onNewValue(function (newValues) {
     
           let divHeader = document.createElement("div");
           divHeader.classList.add('header');
-          divHeader.innerText = 'Save as';
+          divHeader.innerText = 'Extract and save as';
     
           let divBody = document.createElement("div");
           divBody.classList.add('body');
-          divBody.style = 'display: flex; flex-direction: column;';
+          divBody.style = 'display: flex; flex-direction: column; width: 100%;';
           divBody.innerText = 'Provide a new document name:';
     
           let divInput = document.createElement('input');
@@ -374,10 +374,10 @@ Appian.Component.onNewValue(function (newValues) {
           divCancelButton.addEventListener('click', () => {
             instance.UI.closeElements([modalExtractPages.dataElement]);
           });
-    
+
           let divConfirmButton = document.createElement("div");
           divConfirmButton.classList.add('Button');
-          divConfirmButton.classList.add('confirm');
+          divConfirmButton.classList.add('cancel');
           divConfirmButton.classList.add('modal-button');
           divConfirmButton.innerText = 'Save';
           divConfirmButton.addEventListener('click', async () => {
@@ -468,9 +468,114 @@ Appian.Component.onNewValue(function (newValues) {
               return docId;
           });
     
+          let divConfirmDeleteButton = document.createElement("div");
+          divConfirmDeleteButton.classList.add('Button');
+          divConfirmDeleteButton.classList.add('confirm');
+          divConfirmDeleteButton.classList.add('modal-button');
+          divConfirmDeleteButton.innerText = 'Save and remove pages';
+          divConfirmDeleteButton.addEventListener('click', async () => {
+              let docId, message;
+
+              let documentName = instance.UI.iframeWindow.document.getElementById('appian_document_name_extract').value;
+
+              const doc = docViewer.getDocument();
+              const pagesToExtract = instance.getSelectedThumbnailPageNumbers();
+
+              if (documentName === '') {
+                instance.UI.closeElements([modalExtractPages.dataElement]);  
+                instance.showErrorMessage('No name is provided. Please provide a name and try again.');
+                setTimeout(() => {
+                  instance.closeElements(['errorModal']);
+                }, 2000)
+                return;
+              } else if (pagesToExtract.length === 0) {
+                instance.UI.closeElements([modalExtractPages.dataElement]);  
+                instance.showErrorMessage('No pages selected. Please select pages and try again.');
+                instance.UI.openElements(['leftPanel']); 
+                setTimeout(() => {
+                  instance.closeElements(['errorModal']);
+                }, 2000)
+                return;
+              } else if (pagesToExtract.length === docViewer.getPageCount()) {
+                instance.UI.closeElements([modalExtractPages.dataElement]);  
+                instance.showErrorMessage('You cannot extract or delete all pages. Please select smaller range and try again.');
+                setTimeout(() => {
+                  instance.closeElements(['errorModal']);
+                }, 2000)
+                return;
+              }
+    
+              const annotList = annotManager.getAnnotationsList().filter(annot => pagesToExtract.indexOf(annot.PageNumber) > -1);
+              const xfdfString = await annotManager.exportAnnotations({ annotList });
+              const data = await doc.extractPages(pagesToExtract, xfdfString);
+              const base64Document = convertArrayBufferToBase64(data);
+
+              // remove the pages selected from the original document
+              await docViewer.getDocument().documentCompletePromise();
+              await doc.removePages(pagesToExtract);
+    
+              function handleClientApiResponse(response) {
+                if (response.payload.error) {
+                  console.error(
+                    "Connected system response: " + response.payload.error
+                  );
+                  Appian.Component.setValidations(
+                    "Connected system response: " + response.payload.error
+                  );
+                  return;
+                }
+                docId = response.payload.docId;
+                if (docId == null) {
+                  message = "Unable to obtain the doc id from the connected system";
+                  console.error(message);
+                  Appian.Component.setValidations(message);
+                  return;
+                } else {
+                  // Clear any error messages
+                  Appian.Component.setValidations([]);
+                  return docId;
+                }
+              }
+    
+              function handleError(response) {
+                if (response.error && response.error[0]) {
+                  console.error(response.error);
+                  Appian.Component.setValidations([response.error]);
+                } else {
+                  message = "An unspecified error occurred";
+                  console.error(message);
+                  Appian.Component.setValidations(message);
+                }
+              }
+    
+              const documentAppianFolder = documentFolder ? documentFolder : 0;
+    
+              var payload = {
+                base64: base64Document,
+                createNewDocument: true,
+                documentFolder: documentAppianFolder
+              };
+              
+              payload.newDocName = documentName;
+    
+              await Appian.Component.invokeClientApi(
+                docAccessConnectedSystem,
+                "WebViewerStorageClientApi",
+                payload
+              )
+                .then(handleClientApiResponse)
+                .catch(handleError);
+
+              instance.UI.closeElements([modalExtractPages.dataElement]);
+              Appian.Component.saveValue('newSavedDocumentId', docId);
+    
+              return docId;
+          });
+    
           divBody.appendChild(divInput);
           divFooter.appendChild(divCancelButton);
           divFooter.appendChild(divConfirmButton);
+          divFooter.appendChild(divConfirmDeleteButton);
           divContainer.appendChild(divHeader);
           divContainer.appendChild(divBody);
           divContainer.appendChild(divFooter);
