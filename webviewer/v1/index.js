@@ -195,7 +195,7 @@ Appian.Component.onNewValue(function (newValues) {
         enableFilePicker: true,
         fullAPI: fullAPI,
         enableRedaction: enableRedaction,
-        backendType: 'asm',
+        // backendType: 'asm',
         loadAsPDF: true,
         disabledElements: disabledElements
       },
